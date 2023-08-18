@@ -1,0 +1,102 @@
+﻿@model IEnumerable<WebApp.BeautySoft.Models.UserModel>
+
+@{
+    ViewData["Title"] = "Lista de Usuários";
+   
+}
+
+<div class="text-center">
+    
+    @if (TempData["SuccessoMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+            A simple success alert—check it out!
+            @TempData["SuccessoMessage"]
+        </div>
+        
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+            A simple danger alert—check it out!
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    <br />
+
+    <h1>Lista de Usuários</h1>
+    <br/>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary" asp-controller="Users" asp-action="Create" role="button"> Adicionar novo usuário</a>
+    </div>
+
+    <br/>
+
+    <table id="table-user" class="table" style="width:100%">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Login)
+            </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+                
+            <th>
+                @Html.DisplayNameFor(model => model.DateUpdate)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.DateRegistration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Perfil)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+       
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>@item.Login</td>
+                    @* <td>@item.Password</td>                    
+                    <td>@item.DateUpdate</td> *@
+                    <td>@item.DateRegistration</td>
+                    <td>@item.Perfil</td>
+                    <td>
+                        <div role="group">
+                            <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr class="odd"><td colspan="5">Nenhum Usuário Encontrado</td></tr>
+        }
+        
+        </tbody>
+    </table>
+
+</div>
